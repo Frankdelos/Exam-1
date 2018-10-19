@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlexModalService } from '../shared-components/flex-modal/flex-modal.service';
 import { Http } from '@angular/http';
-import { clearImmediate } from 'timers';
+// import { clearImmediate } from 'timers';
 
 
 export interface IOrder{
@@ -62,7 +62,7 @@ displayOrder() {
     "image":"assets/sm_android.jpeg",
     "description": "Android",
     "price": 150.00,
-    "quantity": 2
+    "quantity": 1
   }, {
     "pid": "2",
     "image":"assets/sm_iphone.jpeg",
@@ -74,19 +74,13 @@ displayOrder() {
     "image":"assets/sm_windows.jpeg",
     "description": "Windows Phone",
     "price": 110.00,
-    "quantity": 2
-  }])
+    "quantity": 1
+  }]);
 }
+delete(index:number){
+  this.orders.splice(index,1);
+
 }
-
-
-clear (index: number){
-
-  console.log(index);
-this.orders.splice(index,1);
-}
-
-
 addItem(item:string){
   switch(item){
     case 'Android':
@@ -95,7 +89,7 @@ addItem(item:string){
     "image":"assets/sm_android.jpeg",
     "description": "Android",
     "price": 150.00,
-    "quantity": 2})
+    "quantity": 1})
     break;
     case 'IPhone':
     this.orders.unshift({
@@ -112,9 +106,21 @@ addItem(item:string){
     "image":"assets/sm_windows.jpeg",
     "description": "Windows Phone",
     "price": 110.00,
-    "quantity": 2
+    "quantity": 1
     })
     break;
+  }
+}
+
+clear() {
+  this.orders.map((item:IOrder,i:number)=>{
+    Object.keys(item).map((key:string)=>{
+    if(key!='image'){
+      item[key]='';}
+      return item;
+    }
+  }
+}
 
 }
-]
+
